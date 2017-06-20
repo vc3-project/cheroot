@@ -17,6 +17,7 @@ _base_envs:
   <<: *stage_test
   python: pypy
   dist: trusty
+  sudo: required
   addons:
     apt:
       packages:
