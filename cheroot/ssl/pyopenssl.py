@@ -200,9 +200,10 @@ class pyOpenSSLAdapter(Adapter):
         # See http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/442473
         c = SSL.Context(SSL.SSLv23_METHOD)
         c.use_privatekey_file(self.private_key)
+        c.use_certificate_file(self.certificate)
         if self.certificate_chain:
             c.load_verify_locations(self.certificate_chain)
-        c.use_certificate_file(self.certificate)
+            c.set_verify(SSL.VERIFY_PEER | SSL.VERIFY_FAIL_IF_NO_PEER_CERT, lambda *x:True)
         return c
 
     def get_environ(self):
